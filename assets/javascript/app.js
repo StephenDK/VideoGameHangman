@@ -46,7 +46,46 @@ function startGame() {
 	 console.log(numBlanks);
 	 console.log(blanksAndSuccesses);
 }
+
+function checkLetters(letter) {
+	//Check if letter exists in code
+
+	var isLetterInWord = false;
+
+	for (var i = 0; i < numBlanks; i++) {
+		if (selectedWord[i] == letter) {
+			isLetterInWord = true;
+			alert("letter found");
+		}
+	}
+
+	// check where in word letter exists, then populate out blanksAndSuccesses array
+	if (isLetterInWord) {
+		for (var i = 0; i < numBlanks; i++) {
+			if (selectedWord[i] == letter) {
+				blanksAndSuccesses[i] = letter;
+			}
+		}
+	}
+
+	// Letter wasn't found
+	else {
+		wrongLetters.push(letter);
+		guessesLeft--;
+	}
+
+	//  Testing and debugging
+	console.log(blanksAndSuccesses);
+}
  
+
+function roundComplete() {
+	console.log("Win Count " + winCount + " | Loss Count " + loseCount + " |" + " | Guesses Left " + guessesLeft);
+
+	// Check if user won
+
+	// Check if user lost
+}
 	
 
 // Section 3: Main Process
@@ -56,3 +95,13 @@ function startGame() {
 startGame();
 
 //  Register keyclicks
+
+document.onkeyup = function(event) {
+	var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+	checkLetters(letterGuessed);
+	roundComplete();
+
+
+	// Testing / Debugging
+	console.log(letterGuessed);
+}
