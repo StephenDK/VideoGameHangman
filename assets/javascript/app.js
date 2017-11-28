@@ -55,7 +55,6 @@ function checkLetters(letter) {
 	for (var i = 0; i < numBlanks; i++) {
 		if (selectedWord[i] == letter) {
 			isLetterInWord = true;
-			alert("letter found");
 		}
 	}
 
@@ -82,10 +81,30 @@ function checkLetters(letter) {
 function roundComplete() {
 	console.log("Win Count " + winCount + " | Loss Count " + loseCount + " |" + " | Guesses Left " + guessesLeft);
 
-	// Check if user won
+	//  Update HTML to reflect the most recentcount stats
+	document.getElementById('numGuesses').innerHTML = guessesLeft;
+	document.getElementById('wordToGuess').innerHTML = blanksAndSuccesses.join(" ");
+	document.getElementById('wrongGuesses').innerHTML = wrongLetters.join(" ");
 
+	// Check if user won
+	if (lettersInWord.toString() == blanksAndSuccesses.toString()) {
+		winCount++;
+		
+		//  Update win counter in the HTML
+		document.getElementById('winCounter').innerHTML = winCount;
+
+		startGame();
+	}
 	// Check if user lost
-}
+	else if (guessesLeft == 0) {
+		loseCount++;
+
+		//  Update HTML
+		document.getElementById('lossCounter').innerHTML = loseCount;
+	
+		startGame();
+	}
+}	
 	
 
 // Section 3: Main Process
